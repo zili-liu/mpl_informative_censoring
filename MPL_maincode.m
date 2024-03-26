@@ -1,5 +1,5 @@
 tic
-%format short
+format short
 clc;clear;close;
 %% === model parameters ===
 n = 200; p = 150; n0 = 2;
@@ -47,7 +47,7 @@ phi0 = mean(ini_phi,2);    % initial value for phi
 
 for iter = 1:N
     iter
-    % rng(iter)   % Set a random seed to further control reproducibility
+    rng(iter)   % Set a random seed to further control reproducibility
     [T,Z,Delta,T1,Z1,Delta1] = survival_data(n,Beta,PHI,mu,sigma,tau,iter);
     Censorrate(iter) = 1-mean(Delta);
     [ini_beta_PL(:,iter),ini_phi(:,iter)] =...
@@ -60,7 +60,7 @@ for iter = 1:N
     oracle_beta(:,iter) = initial_beta1(n,Z(:,index),1e-5,Delta);
     full_beta(:,iter) = initial_beta1(n,Z,1e-5,Delta);
 
-    % [pl(:,iter)] = ista_LQA(n,beta0,Z,1e-5,Delta,a);   % theta=95 for n=200
+    % [pl(:,iter)] = ista_LQA(n,beta0,Z,1e-5,Delta,a);   
     [pl(:,iter)] = ista_LQA(n,ini_beta_PL(:,iter),Z,1e-5,Delta,a); 
 
     % [mpl(:,iter),phi(:,iter),seta(:,iter),gama(:,iter),H_T(:,iter),H_C(:,iter)] =...
@@ -204,7 +204,6 @@ status1 = statu(I1);
 end
 
 
-
 %% ===================================================
 %                 initial_beta()
 % ============================================================
@@ -217,7 +216,6 @@ opt_BIC2 = 1e+10;
 
 n0 = sum(status);
 lambda0 = log(n0);
-
 
 % ============================================================
 k = 1; err = 0; tk = 28;
@@ -326,7 +324,6 @@ end
 beta1 = beta1.*(abs(beta1)>=1e-4);
 
 initial_beta = beta1;
-
 
 end
 
@@ -690,8 +687,6 @@ while k<=1000 && (err1==0 ||err2==0 || err3==0 || err4==0)
 end
 
 %%
-% beta2 = beta1.*(abs(beta1)>=8*1e-4);
-% phi2 = phi1.*(abs(phi1)>=8*1e-4);
 beta2 = beta1.*(abs(beta1)>=3*1e-4);
 phi2 = phi1.*(abs(phi1)>=3*1e-4);
 
@@ -703,6 +698,9 @@ opt_gama = gama;
 end
 
 
+%% ===================================================
+%                 cov_matrix()
+% ============================================================
 
 function [cov_beta, cov_phi] = cov_matrix(beta,phi,seta,gama,Z,Delta,n,Psi,index,index1,tau)
 [~,p] = size(Z);
@@ -780,7 +778,9 @@ cov_phi = diag(inv(tt(p+index1,p+index1)));
 end
 
 
-
+%% ===================================================
+%                 PL_cov()
+% ============================================================
 
 function PL_cov_beta = PL_cov(n,Z,beta,status,index)
 %% % * --- ASE:the average of estimated standard error; --- *% % %%
