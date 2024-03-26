@@ -176,7 +176,6 @@ beta1 = beta1.*(abs(beta1)>=2*1e-4);
 
 initial_beta = beta1;
 
-
 end
 
 
@@ -607,7 +606,9 @@ opt_gama = gama;
 end
 
 
-
+%% ===================================================
+%                 discrBinNA3()
+% ============================================================
 
 % % Discretizing a sample of n survival times into sub-intervals
 % % with no. of 'binCount' subjects in each sub-interval
@@ -711,6 +712,9 @@ end
 end
 
 
+%% ===================================================
+%                 cov_matrix()
+% ============================================================
 
 function [cov_beta, cov_phi] = cov_matrix(beta,phi,seta,gama,T,Z,Delta,n,n0,index,index1)
 m = n/n0;
@@ -848,8 +852,12 @@ tt = [P1 P3; P3 P2];
 cov_beta = diag(inv(tt(index,index)));
 cov_phi = diag(inv(tt(p+index1,p+index1)));
 
-
 end
+
+
+%% ===================================================
+%                 PL_cov()
+% ============================================================
 
 function PL_cov_beta = PL_cov(n,Z,beta,status,index)
 %% % * --- ASE:the average of estimated standard error; --- *% % %%
@@ -873,7 +881,6 @@ L_primeprime = -2*(sum(cat(3,Cel4{:}),3) - 2*sum(cat(3,Cel3{:}),3));
 tt = diag( inv( L_primeprime(index,index) ) );
 
 PL_cov_beta = tt;  % % Cao et al.(2017) Cox-SELO、Zhang and Lu(2007) Adaptive-Cox
-
 
 
 end
