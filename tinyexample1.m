@@ -611,6 +611,9 @@ opt_gama = gama;
 end
 
 
+%% ===================================================
+%                 cov_matrix()
+% ============================================================
 
 function [cov_beta, cov_phi] = cov_matrix(beta,phi,seta,gama,T,Z,Delta,n,n0,index,index1)
 m = n/n0;
@@ -743,6 +746,9 @@ cov_phi = diag(inv(tt(p+index1,p+index1)));
 end
 
 
+%% ===================================================
+%                 PL_cov()
+% ============================================================
 
 function PL_cov_beta = PL_cov(n,Z,beta,status,index)
 %% % * --- ASE:the average of estimated standard error; --- *% % %%
@@ -771,6 +777,9 @@ PL_cov_beta = tt;  % % Cao et al.(2017) Cox-SELO、Zhang and Lu(2007) Adaptive-C
 end
 
 
+%% ===================================================
+%                 discrBinNA3()
+% ============================================================
 
 % % Discretizing a sample of n survival times into sub-intervals
 % % with no. of 'binCount' subjects in each sub-interval
