@@ -30,7 +30,7 @@ index1 = find(PHI~=0);
 
 for iter = 1:200
     iter
-    rng(iter)   % % 设置随机种子，进一步控制重复性
+    rng(iter)   % % Set a random seed
     [T,Z,Delta,T1,Z1,Delta1] = survival_data(n,Beta,PHI,mu,sigma,tau,iter);
     Censorrate1(iter) = 1-mean(Delta);
 
@@ -62,7 +62,7 @@ for iter = 1:N
 
    
 
-    %% === 读取csv数据 ===
+    %% === read csv data ===
     thet = csvread('D:\Informative censoring\simulation revision\Spline\theta_ini.csv', 1, 1);
     gamm = csvread('D:\Informative censoring\simulation revision\Spline\gamma_ini.csv', 1, 1);
     RT = csvread('D:\Informative censoring\simulation revision\Spline\RT.csv', 1, 1);
@@ -168,9 +168,6 @@ status = statu(I);
 Z1 = ZZ(I1,:);
 status1 = statu(I1);
 
-
-
-
 end
 
 
@@ -252,24 +249,20 @@ while k<=1000 && err1==0
     phi_tilde = phi - L_prime1/tk;
     phi1 = u2\phi_tilde;
 
-
     w1 = phi1-phi;
     err1 = norm(w1,2)^2 <= r*norm(phi,2)^2;
     % err1 = sqrt(abs(norm(phi1,2)^2-norm(phi,2)^2)) <= r;
     phi = phi1;
     k = k+1;
-
 end
 
 phi1 = phi1.*(abs(phi1)>=2*1e-4);
 opt_phi = phi1;
 
-
 initial_beta = opt_beta;
 initial_phi = opt_phi;
 
 end
-
 
 
 %% ===================================================
