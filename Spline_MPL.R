@@ -3,7 +3,7 @@ library(Matrix)
 library(survivalMPLdc)
 library(splines2)
 library(readr)
-path <- ('D:/科研项目/Informative censoring/simulation revision/Spline/mat')
+path <- ('D:/Informative censoring/simulation revision/Spline/mat')
 
 pathname1 <- file.path(path,'T.mat')
 pathname2 <- file.path(path,'Z.mat')
