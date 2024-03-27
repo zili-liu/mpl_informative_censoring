@@ -3,7 +3,7 @@ format short
 clc;clear;close;
 %% === model parameters ===
 n = 200; p = 20; n0 = 2;
-N = 20;
+N = 500;
 rho = [0.25 0.5];
 mu = zeros(p,1); c = (1:p);
 ama = bsxfun(@minus,c,c');
@@ -11,8 +11,7 @@ rho = rho(2);
 sigma = rho.^(abs(ama));
 
 %% === 'control' parameter ===
-
-a = 120;  % P = 60
+a = 120;  
 tau = 0.5;
 
 %% === True parameters ===
